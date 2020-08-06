@@ -1,6 +1,5 @@
 import csv
 with open("C:\\python\\台大code\\project 1\\project.csv", newline = "") as test:
-
     rows = csv.DictReader(test)
     cin = [row for row in rows]
 class test:
@@ -61,14 +60,21 @@ def strtotime2(time):
 
 time = input()
 time = strtotime(time)
-dict_names = {'1' : {'Accepted':0,'Compile Error':0,'Runtime Error':0,'Time Limit Exceed':0,'Wrong Answer':0},
-              '2' : {'Accepted':0,'Compile Error':0,'Runtime Error':0,'Time Limit Exceed':0,'Wrong Answer':0},
-              '3' : {'Accepted':0,'Compile Error':0,'Runtime Error':0,'Time Limit Exceed':0,'Wrong Answer':0},
-              '4' : {'Accepted':0,'Compile Error':0,'Runtime Error':0,'Time Limit Exceed':0,'Wrong Answer':0}
-              }
+midterm_dict ={}
+
 for i in cin:
     if strtotime2(i['SubmissionTime']).isvalidtime(time[0],time[1]) == True:
-        dict_names[i['Problem']][i['Status']] += 1
+        if int(i['Problem']) not in midterm_dict:
+            midterm_dict[int(i['Problem'])] = list()
+        midterm_dict[int(i['Problem'])].append(i['Status'])
+
+for i in range(1,5):
+    n1 = midterm_dict[i].count('Accepted')
+    n2 = midterm_dict[i].count('Compile Error')
+    n3 = midterm_dict[i].count('Runtime Error')
+    n4 = midterm_dict[i].count('Time Limit Exceed')
+    n5 = midterm_dict[i].count('Wrong Answer')
+    print(n1,n2,n3,n4,n5,sep=" ",end=";")
+
+
         
-     
-print(dict_names['1'].values(),";",dict_names['2'].values(),";",dict_names['3'].values(),";",dict_names['4'].values(),";")
